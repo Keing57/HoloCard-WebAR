@@ -16,3 +16,35 @@ scene.add(ambientLight);
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
 directionalLight.position.set(0, 1, 0);
 scene.add(directionalLight);
+
+const arToolkitSource = new THREEx.ArToolkitSource({
+    sourceType: 'webcam'
+});
+
+function onResize() {
+    arToolkitSource.onResizeElement();
+    arToolkitSource.copyElementSizeTo(renderer.domElement);
+    if (typeof arToolkitContext !== 'undefined' && arToolkitContext && arToolkitContext.arController !== null) {
+        arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas);
+    }
+}
+
+window.addEventListener('resize', () => {
+    onResize();
+});
+
+arToolkitSource.init(() => {
+    onResize();
+}, (err) => {
+    const ui = document.getElementById('ui') || document.querySelector('.ui');
+    if (ui) {
+        ui.textContent = 'Hiba: A kamera hozzáférés le van tiltva!';
+    }
+});
+
+window.addEventListener('camera-error', () => {
+    const ui = document.getElementById('ui') || document.querySelector('.ui');
+    if (ui) {
+        ui.textContent = 'Hiba: A kamera hozzáférés le van tiltva!';
+    }
+});
