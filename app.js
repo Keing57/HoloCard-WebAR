@@ -21,10 +21,19 @@ const arToolkitSource = new THREEx.ArToolkitSource({
     sourceType: 'webcam'
 });
 
+const arToolkitContext = new THREEx.ArToolkitContext({
+    cameraParametersUrl: 'https://raw.githack.com/AR-js-org/AR.js/master/data/data/camera_para.dat',
+    detectionMode: 'mono'
+});
+
+arToolkitContext.init(() => {
+    camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
+});
+
 function onResize() {
     arToolkitSource.onResizeElement();
     arToolkitSource.copyElementSizeTo(renderer.domElement);
-    if (typeof arToolkitContext !== 'undefined' && arToolkitContext && arToolkitContext.arController !== null) {
+    if (arToolkitContext.arController !== null) {
         arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas);
     }
 }
