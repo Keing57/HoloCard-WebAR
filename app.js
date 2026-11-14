@@ -30,6 +30,14 @@ arToolkitContext.init(() => {
     camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
 });
 
+const markerRoot = new THREE.Group();
+scene.add(markerRoot);
+
+const markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
+    type: 'pattern',
+    patternUrl: 'https://raw.githack.com/AR-js-org/AR.js/master/data/data/patt.hiro'
+});
+
 function onResize() {
     arToolkitSource.onResizeElement();
     arToolkitSource.copyElementSizeTo(renderer.domElement);
