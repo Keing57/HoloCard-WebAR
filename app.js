@@ -65,3 +65,13 @@ window.addEventListener('camera-error', () => {
         ui.textContent = 'Hiba: A kamera hozzáférés le van tiltva!';
     }
 });
+
+function animate() {
+    requestAnimationFrame(animate);
+    if (arToolkitSource.ready) {
+        arToolkitContext.update(arToolkitSource.domElement);
+    }
+    renderer.render(scene, camera);
+}
+
+animate();
