@@ -38,6 +38,14 @@ const markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot,
     patternUrl: 'https://raw.githack.com/AR-js-org/AR.js/master/data/data/patt.hiro'
 });
 
+const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
+const boxMaterial = new THREE.MeshStandardMaterial({
+    color: 0xff0000
+});
+const cube = new THREE.Mesh(boxGeometry, boxMaterial);
+cube.position.y = 0.5;
+markerRoot.add(cube);
+
 function onResize() {
     arToolkitSource.onResizeElement();
     arToolkitSource.copyElementSizeTo(renderer.domElement);
