@@ -79,6 +79,10 @@ function animate() {
     if (arToolkitSource.ready) {
         arToolkitContext.update(arToolkitSource.domElement);
     }
+    if (markerRoot.visible) {
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+    }
     renderer.render(scene, camera);
 }
 
