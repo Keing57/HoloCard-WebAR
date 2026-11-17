@@ -38,13 +38,15 @@ const markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot,
     patternUrl: 'https://raw.githack.com/AR-js-org/AR.js/master/data/data/patt.hiro'
 });
 
-const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
-const boxMaterial = new THREE.MeshStandardMaterial({
+const knotGeometry = new THREE.TorusKnotGeometry(0.3, 0.1, 64, 16);
+const knotMaterial = new THREE.MeshStandardMaterial({
     color: 0xff0000
 });
-const cube = new THREE.Mesh(boxGeometry, boxMaterial);
-cube.position.y = 0.5;
-markerRoot.add(cube);
+const knot = new THREE.Mesh(knotGeometry, knotMaterial);
+knot.position.y = 0.5;
+markerRoot.add(knot);
+
+const cube = knot;
 
 function onResize() {
     arToolkitSource.onResizeElement();
@@ -80,8 +82,8 @@ function animate() {
         arToolkitContext.update(arToolkitSource.domElement);
     }
     if (markerRoot.visible) {
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
+        knot.rotation.x += 0.01;
+        knot.rotation.y += 0.01;
     }
     renderer.render(scene, camera);
 }
