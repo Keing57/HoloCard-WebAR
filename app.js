@@ -46,6 +46,15 @@ const knot = new THREE.Mesh(knotGeometry, knotMaterial);
 knot.position.y = 0.5;
 markerRoot.add(knot);
 
+const wireframeMaterial = new THREE.MeshBasicMaterial({
+    color: 0x000000,
+    wireframe: true
+});
+const wireframeKnot = knot.clone();
+wireframeKnot.material = wireframeMaterial;
+wireframeKnot.scale.set(1.05, 1.05, 1.05);
+markerRoot.add(wireframeKnot);
+
 const cube = knot;
 
 function onResize() {
@@ -84,6 +93,8 @@ function animate() {
     if (markerRoot.visible) {
         knot.rotation.x += 0.01;
         knot.rotation.y += 0.01;
+        wireframeKnot.rotation.x += 0.01;
+        wireframeKnot.rotation.y += 0.01;
     }
     renderer.render(scene, camera);
 }
