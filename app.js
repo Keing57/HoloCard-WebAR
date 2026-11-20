@@ -58,15 +58,25 @@ markerRoot.add(wireframeKnot);
 const cube = knot;
 
 function onResize() {
+    renderer.setSize(window.innerWidth, window.innerHeight);
     arToolkitSource.onResizeElement();
     arToolkitSource.copyElementSizeTo(renderer.domElement);
     if (arToolkitContext.arController !== null) {
         arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas);
+        camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
+    }
+    if (camera.aspect) {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
     }
 }
 
 window.addEventListener('resize', () => {
     onResize();
+});
+
+window.addEventListener('orientationchange', () => {
+    setTimeout(onResize, 100);
 });
 
 arToolkitSource.init(() => {
