@@ -55,6 +55,27 @@ wireframeKnot.material = wireframeMaterial;
 wireframeKnot.scale.set(1.05, 1.05, 1.05);
 markerRoot.add(wireframeKnot);
 
+const particleCount = 100;
+const particleGeometry = new THREE.BufferGeometry();
+const particlePositions = new Float32Array(particleCount * 3);
+
+for (let i = 0; i < particleCount * 3; i += 3) {
+    particlePositions[i] = (Math.random() - 0.5) * 2;
+    particlePositions[i + 1] = (Math.random() - 0.5) * 2;
+    particlePositions[i + 2] = (Math.random() - 0.5) * 2;
+}
+
+particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+
+const particleMaterial = new THREE.PointsMaterial({
+    color: 0xffffff,
+    size: 0.05
+});
+
+const particles = new THREE.Points(particleGeometry, particleMaterial);
+particles.position.y = 0.5;
+markerRoot.add(particles);
+
 const cube = knot;
 
 function onResize() {
